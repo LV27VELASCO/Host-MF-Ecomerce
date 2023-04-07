@@ -2,9 +2,13 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 const deps = require("./package.json").dependencies;
-module.exports = {
+module.exports =(_,argv)=> {
+  
+  return{
   output: {
-    publicPath: "http://localhost:8080/",
+    publicPath: argv.mode ==="development"
+    ?"http://localhost:8080/"
+    :"https://host-mf-ecomerce.netlify.app/"
   },
 
   resolve: {
@@ -44,10 +48,18 @@ module.exports = {
       name: "Host",
       filename: "remoteEntry.js",
       remotes: {
-        AllProducts:"AllProducts@http://localhost:8081/remoteEntry.js",
-        Contenedor:"Header@http://localhost:8082/remoteEntry.js",
-        NavBar:"Header@http://localhost:8082/remoteEntry.js",
-        Botton:"Header@http://localhost:8082/remoteEntry.js",
+        AllProducts:argv.mode ==="development"
+        ?"AllProducts@http://localhost:8081/remoteEntry.js"
+        :"AllProducts@https://allproducts-mf-ecomerce.netlify.app/remoteEntry.js",
+        Contenedor:argv.mode ==="development"
+        ?"Header@http://localhost:8082/remoteEntry.js"
+        :"Header@https://header-mf-ecomerce.netlify.app/remoteEntry.js",
+        NavBar:argv.mode ==="development"
+        ?"Header@http://localhost:8082/remoteEntry.js"
+        :"Header@https://header-mf-ecomerce.netlify.app/remoteEntry.js",
+        Botton:argv.mode ==="development"
+        ?"Header@http://localhost:8082/remoteEntry.js"
+        :"Header@https://header-mf-ecomerce.netlify.app/remoteEntry.js",
       },
       exposes: {},
       shared: {
@@ -66,4 +78,5 @@ module.exports = {
       template: "./src/index.html",
     }),
   ],
-};
+}
+}
