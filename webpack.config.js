@@ -51,13 +51,7 @@ module.exports =(_,argv)=> {
         AllProducts:argv.mode ==="development"
         ?"AllProducts@http://localhost:8081/remoteEntry.js"
         :"AllProducts@https://allproducts-mf-ecomerce.netlify.app/remoteEntry.js",
-        Contenedor:argv.mode ==="development"
-        ?"Header@http://localhost:8082/remoteEntry.js"
-        :"Header@https://header-mf-ecomerce.netlify.app/remoteEntry.js",
-        NavBar:argv.mode ==="development"
-        ?"Header@http://localhost:8082/remoteEntry.js"
-        :"Header@https://header-mf-ecomerce.netlify.app/remoteEntry.js",
-        Botton:argv.mode ==="development"
+        NavFooter:argv.mode ==="development"
         ?"Header@http://localhost:8082/remoteEntry.js"
         :"Header@https://header-mf-ecomerce.netlify.app/remoteEntry.js",
       },
