@@ -54,6 +54,9 @@ module.exports =(_,argv)=> {
         NavFooter:argv.mode ==="development"
         ?"Header@http://localhost:8082/remoteEntry.js"
         :"Header@https://header-mf-ecomerce.netlify.app/remoteEntry.js",
+        LoginSignUp:argv.mode ==="development"
+        ?"Login@http://localhost:8083/remoteEntry.js"
+        :"Login@https://login-mf-ecomerce.netlify.app/remoteEntry.js",
       },
       exposes: {},
       shared: {
