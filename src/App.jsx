@@ -1,17 +1,23 @@
-import React, {Suspense } from "react";
+import React, {Suspense, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { HashRouter,Routes,Route } from "react-router-dom";
-import useProducts from "./Hooks/useProducts"
 import "./styles/index.css";
 import NavBar from "NavFooter/Header";
 import Loader from "./Components/Loader";
-import Footer from "NavFooter/Footer"
+import Footer from "NavFooter/Footer";
+import {Provider,useSelector,useDispatch} from 'react-redux';
+import store from "./Store";
+import { getProducts } from "./Store/Slices/products.slice";
 const Products = React.lazy(()=>import("AllProducts/Products"));
 const SignUp = React.lazy(()=>import("LoginSignUp/SignUp"));
 const Login = React.lazy(()=>import("LoginSignUp/Login"));
 
 const App = () =>{
-  const {allProducts} = useProducts()
+  const dispatch=useDispatch();
+  let products=useSelector(shop=>shop.Products)
+  useEffect(() => {
+    dispatch(getProducts())
+  }, [])
   const product =[
     {
         "id": 16346,
@@ -86,7 +92,7 @@ const App = () =>{
         {/* Ruta inicial */}
         <Route path="/" element={
           <Suspense fallback={<Loader/>}>
-            <Products allProducts={allProducts}/>
+            <Products allProducts={products}/>
           </Suspense>}/>
         {/* Ruta Login */}
         <Route path="/login" element={
@@ -106,7 +112,9 @@ const App = () =>{
   </div>
 )};
 ReactDOM.render(
+  <Provider store={store}>
   <HashRouter>
     <App />
   </HashRouter>
+  </Provider>
 , document.getElementById("app"));
