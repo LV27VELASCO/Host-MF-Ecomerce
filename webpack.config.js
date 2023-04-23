@@ -57,6 +57,9 @@ module.exports =(_,argv)=> {
         LoginSignUp:argv.mode ==="development"
         ?"Login@http://localhost:8083/remoteEntry.js"
         :"Login@https://login-mf-ecomerce.netlify.app/remoteEntry.js",
+        Product:argv.mode ==="development"
+        ?"Product@http://localhost:8084/remoteEntry.js"
+        :"Product@https://productid-mf-ecomerce.netlify.app/remoteEntry.js",
       },
       exposes: {},
       shared: {
