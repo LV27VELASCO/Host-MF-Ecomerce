@@ -10,18 +10,23 @@ import Loader from "./Components/Loader";
 import Footer from "NavFooter/Footer";
 const Products = React.lazy(()=>import("AllProducts/Products"));
 const ProductId = React.lazy(()=>import("Product/ProductId"));
+import useProductAdd from "Product/ActuCard";
 const SignUp = React.lazy(()=>import("LoginSignUp/SignUp"));
 const Login = React.lazy(()=>import("LoginSignUp/Login"));
 import "./styles/index.css";
 
 const App = () =>{
   const dispatch=useDispatch();
+  const {add} = useProductAdd();
   let products=useSelector(shop=>shop.Products);
   let cart=useSelector(shop=>shop.Cart);
   useEffect(() => {
     dispatch(getProducts())
-    dispatch(getCart())
   }, [])
+
+  useEffect(()=>{
+    dispatch(getCart())
+  },[add])
 
  return(
   <div className="app">
