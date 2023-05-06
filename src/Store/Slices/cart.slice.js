@@ -17,14 +17,12 @@ export const getCart=()=>(dispach)=>{
         axios.defaults.baseURL="https://e-commerce-api-v2.academlo.tech";
         axios.get(url,getConfig())
         .then((response)=>{
-            console.log(response)
             if(response.status==200){
                 dispach(setCart(response.data))
             }
         })
         .catch(err=>{
-            console.log(err)
-            if(err.status==404){
+            if(err.response.status==403 ||err.response.status==404){
                 dispach(setCart([]))
             }
         })

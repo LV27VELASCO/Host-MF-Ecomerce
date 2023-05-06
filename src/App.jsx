@@ -21,11 +21,7 @@ const App = () =>{
   let cart=useSelector(shop=>shop.Cart);
   const [addCard, setAddCart] = useState(false);
   const addToCard=()=>{
-    setAddCart(true)
-  }
-  
-  const NegativeState=()=>{
-    setAddCart(false)
+    setAddCart(!addCard)
   }
   useEffect(() => {
     dispatch(getProducts())
@@ -33,12 +29,13 @@ const App = () =>{
 
   useEffect(()=>{
     dispatch(getCart())
+    console.log(addCard)
   },[addCard])
 
  return(
   <div className="app">
     <Routes>
-      <Route element={<NavBar product={cart}/>}>
+      <Route element={<NavBar product={cart} addToCard={addToCard}/>}>
         {/* Ruta inicial */}
         <Route path="/" element={
           <Suspense fallback={<Loader/>}>
@@ -47,13 +44,13 @@ const App = () =>{
           {/* Producto */}
           <Route path="/product/:id" element={
             <Suspense fallback={<Loader/>}>
-            <ProductId addToCard={addToCard} NegativeState={NegativeState}/>
+            <ProductId addToCard={addToCard}/>
           </Suspense>
           }/>
         {/* Ruta Login */}
         <Route path="/login" element={
           <Suspense fallback={<Loader/>}>
-          <Login/>
+          <Login addToCard={addToCard}/>
           </Suspense>}/>
         {/* Ruta signUp */}
         <Route path="/signUp" element={
