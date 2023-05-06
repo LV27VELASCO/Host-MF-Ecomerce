@@ -10,23 +10,30 @@ import Loader from "./Components/Loader";
 import Footer from "NavFooter/Footer";
 const Products = React.lazy(()=>import("AllProducts/Products"));
 const ProductId = React.lazy(()=>import("Product/ProductId"));
-import useProductAdd from "Product/ActuCard";
 const SignUp = React.lazy(()=>import("LoginSignUp/SignUp"));
 const Login = React.lazy(()=>import("LoginSignUp/Login"));
 import "./styles/index.css";
+import { useState } from "react";
 
 const App = () =>{
   const dispatch=useDispatch();
-  const {add} = useProductAdd();
   let products=useSelector(shop=>shop.Products);
   let cart=useSelector(shop=>shop.Cart);
+  const [addCard, setAddCart] = useState(false);
+  const addToCard=()=>{
+    setAddCart(true)
+  }
+  
+  const NegativeState=()=>{
+    setAddCart(false)
+  }
   useEffect(() => {
     dispatch(getProducts())
   }, [])
 
   useEffect(()=>{
     dispatch(getCart())
-  },[add])
+  },[addCard])
 
  return(
   <div className="app">
@@ -40,7 +47,7 @@ const App = () =>{
           {/* Producto */}
           <Route path="/product/:id" element={
             <Suspense fallback={<Loader/>}>
-            <ProductId/>
+            <ProductId addToCard={addToCard} NegativeState={NegativeState}/>
           </Suspense>
           }/>
         {/* Ruta Login */}
