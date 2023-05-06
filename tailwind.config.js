@@ -10,6 +10,12 @@ module.exports = {
         'marine':'#00ADDB',
         'gray-transparent':"#B2B2B2",
           'blue-beauty':"#2872FA",
+      },
+      width: {
+        'w-80': '355px',
+      },
+      screens: {
+        'xs': '300px'
       }
     },
   },
