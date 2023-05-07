@@ -29,7 +29,6 @@ const App = () =>{
 
   useEffect(()=>{
     dispatch(getCart())
-    console.log(addCard)
   },[addCard])
 
  return(
